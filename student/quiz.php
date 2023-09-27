@@ -15,7 +15,7 @@ if (!isset($_SESSION["nis"]))
     <meta http-equiv="pragma" content="no-cache" />
     <meta http-equiv="expires" content="-1" />
     <title>
-        Dashboard
+        Leader Board
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -29,8 +29,8 @@ if (!isset($_SESSION["nis"]))
     <link href="../assets/css/main.css" rel="stylesheet" />
     <style>
         .grid-container {
-            display: block;
-            grid-template-columns: auto;
+            display: grid;
+            grid-template-columns: auto auto auto auto;
             padding: 10px;
         }
 
@@ -66,7 +66,7 @@ if (!isset($_SESSION["nis"]))
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="#pablo">Class</a>
+                        <a class="navbar-brand" href="#pablo">Quiz</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -81,76 +81,59 @@ if (!isset($_SESSION["nis"]))
             </div>
             <div class="content" style="min-height: auto;">
                 <div class="row">
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="title">Class</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="grid-container">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="card" style="min-height:400px;">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h5 class="title">Quiz<?php echo $_SESSION['number']; ?></h5>
+                                        </div>
+
+
+                                    </div>
+                                    <!-- konten   -->
                                     <?php
                                     include('../connector/dbcon.php');
-                                    $getClass = $database->getReference('Class')->getValue();
-                                    foreach ($getClass as $key => $row) {
-                                        $getDataDiri = $database->getReference('AddClass/' . $row['idclass'] . "/" . $_SESSION['nis'])->getValue();
-                                        if ($getDataDiri > 0) {
+                                    $getData = $database->getReference("Temp_Quiz/" . $_SESSION['nis'] . "/" . $_SESSION['number'])->getValue();
+                                    $no = 0;
+                                    $getQuestion = $database->getReference("Question/" . $getData['idquestion'])->getValue();
                                     ?>
-                                            <form action="../API/student_class.php" method="post">
-                                                <button class="shadow-lg p-3 bg-white rounded btn btn-link" name="gotoLevel" value="<?php echo $row['idclass']; ?>">
+                                    <form method="post" action="../API/student_class.php">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlInput1">Question</label>
+                                            <h2><?php echo $getQuestion['question']; ?></h2>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="choice" value="A">
+                                            <label class="form-check-label" for="exampleRadios1">
+                                                <h3><?php echo $getQuestion['option_a']; ?></h3>
+                                            </label>
+                                            <br>
+                                            <input class="form-check-input" type="radio" name="choice" value="B">
+                                            <label class="form-check-label" for="exampleRadios1">
+                                                <h3><?php echo $getQuestion['option_b']; ?></h3>
+                                            </label>
+                                            <br>
+                                            <input class="form-check-input" type="radio" name="choice" value="C">
+                                            <label class="form-check-label" for="exampleRadios1">
+                                                <h3><?php echo $getQuestion['option_c']; ?></h3>
+                                            </label>
+                                            <br>
+                                            <input class="form-check-input" type="radio" name="choice" value="D">
+                                            <label class="form-check-label" for="exampleRadios1">
+                                                <h3><?php echo $getQuestion['option_d']; ?></h3>
+                                            </label>
 
-                                                    <div class="grid-item"><?php echo $row['nameclass']; ?></div>
+                                        </div>
 
-
-                                                </button>
-                                            </form>
-                                    <?php
-                                        }
-                                    }
-                                    ?>
+                                        <button class=" btn btn-primary btn-block btn-round" name="quiz" style="margin-top:50px;float:right !important;">Submit</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="title">TOP Score</h5>
-                            </div>
-                            <div class="card-body">
-                                <table class="table table-hover" style="margin-left:1%">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">NIS</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">SCORE</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $getData = $database->getReference("exp")->orderByChild("exp")->getValue();
-                                        $no = 1;
-                                        rsort($getData);
-                                        if ($getData > 0) {
-                                            foreach ($getData as $key => $row) {
-                                        ?>
-                                                <tr>
-                                                    <th scope="row"><?php echo $no; ?></th>
-                                                    <td><?php echo $row['nis']; ?></td>
-                                                    <td><?php $getName = $database->getReference("Users/" . $row['nis'])->getValue();
-                                                        echo $getName['name']; ?></td>
-                                                    <td><?php echo $row['exp']; ?></td>
-                                                </tr>
-                                        <?php
-                                                $no++;
-                                            }
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <!-- footer -->

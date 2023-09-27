@@ -21,11 +21,13 @@ if (isset($_POST['goaddlevel'])) {
 if (isset($_POST['adddatalevel'])) {
     $idlevel = $_POST['idlevel'];
     $namelevel = $_POST['namelevel'];
+    $unlockexp = $_POST['unlockexp'];
     $idclass = $_POST['idclass'];
 
     $postData = [
         'idlevel' => $idlevel,
         'namelevel' => $namelevel,
+        'unlockexp' => $unlockexp,
         'idclass' => $idclass
     ];
     $postRef_result = $database->getReference("Level/" . $idlevel)->set($postData);
@@ -45,11 +47,13 @@ if (isset($_POST['edit'])) {
 if (isset($_POST['editclass'])) {
     $idlevel = $_POST['idlevel'];
     $namelevel = $_POST['namelevel'];
+    $unlockexp = $_POST['unlockexp'];
     $idclass = $_POST['idclass'];
 
     $postData = [
         'idlevel' => $idlevel,
         'namelevel' => $namelevel,
+        'unlockexp' => $unlockexp,
         'idclass' => $idclass
     ];
     $postRef_result = $database->getReference("Level/" . $idlevel)->set($postData);

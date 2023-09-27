@@ -15,7 +15,7 @@ if (!isset($_SESSION["nis"]))
     <meta http-equiv="pragma" content="no-cache" />
     <meta http-equiv="expires" content="-1" />
     <title>
-        Dashboard
+        Leader Board
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -29,8 +29,8 @@ if (!isset($_SESSION["nis"]))
     <link href="../assets/css/main.css" rel="stylesheet" />
     <style>
         .grid-container {
-            display: block;
-            grid-template-columns: auto;
+            display: grid;
+            grid-template-columns: auto auto auto auto;
             padding: 10px;
         }
 
@@ -66,7 +66,7 @@ if (!isset($_SESSION["nis"]))
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="#pablo">Class</a>
+                        <a class="navbar-brand" href="#pablo">Level</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -81,29 +81,68 @@ if (!isset($_SESSION["nis"]))
             </div>
             <div class="content" style="min-height: auto;">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="title">Class</h5>
+                                <h5 class="title">Level</h5>
                             </div>
                             <div class="card-body">
                                 <div class="grid-container">
                                     <?php
                                     include('../connector/dbcon.php');
-                                    $getClass = $database->getReference('Class')->getValue();
-                                    foreach ($getClass as $key => $row) {
-                                        $getDataDiri = $database->getReference('AddClass/' . $row['idclass'] . "/" . $_SESSION['nis'])->getValue();
-                                        if ($getDataDiri > 0) {
+                                    $getLevel = $database->getReference('Level')->getValue();
+                                    foreach ($getLevel as $key => $row) {
+                                        if ($row['idclass'] == $_SESSION['idclass']) {
+                                            $getExp = $database->getReference('exp/' . $_SESSION['nis'])->getValue();
+                                            if ($getExp > 0) {
+                                                if ($row['unlockexp'] <= $getExp['exp'] || $row['unlockexp'] == 0) {
                                     ?>
-                                            <form action="../API/student_class.php" method="post">
-                                                <button class="shadow-lg p-3 bg-white rounded btn btn-link" name="gotoLevel" value="<?php echo $row['idclass']; ?>">
+                                                    <form action="../API/student_class.php" method="post">
+                                                        <button class="shadow-lg p-3 bg-white rounded btn btn-link" name="goquiz" value="<?php echo $row['idlevel']; ?>">
 
-                                                    <div class="grid-item"><?php echo $row['nameclass']; ?></div>
+                                                            <div class="grid-item"><?php echo $row['namelevel']; ?></div>
 
 
-                                                </button>
-                                            </form>
+                                                        </button>
+                                                    </form>
+                                                <?php
+                                                } else {
+                                                ?>
+                                                    <form action="../API/student_class.php" method="post">
+                                                        <button class="shadow-lg p-3 bg-white rounded btn btn-link" name="goquiz" value="<?php echo $row['idlevel']; ?>" disabled>
+
+                                                            <div class="grid-item"><?php echo $row['namelevel']; ?></div>
+
+
+                                                        </button>
+                                                    </form>
+                                                <?php
+                                                }
+                                            } else {
+                                                if ($row['unlockexp'] <= $getExp['exp'] || $row['unlockexp'] == 0) {
+                                                ?>
+                                                    <form action="../API/student_class.php" method="post">
+                                                        <button class="shadow-lg p-3 bg-white rounded btn btn-link" name="goquiz" value="<?php echo $row['idlevel']; ?>">
+
+                                                            <div class="grid-item"><?php echo $row['namelevel']; ?></div>
+
+
+                                                        </button>
+                                                    </form>
+                                                <?php
+                                                } else {
+                                                ?>
+                                                    <form action="../API/student_class.php" method="post">
+                                                        <button class="shadow-lg p-3 bg-white rounded btn btn-link" name="goquiz" value="<?php echo $row['idlevel']; ?>" disabled>
+
+                                                            <div class="grid-item"><?php echo $row['namelevel']; ?></div>
+
+
+                                                        </button>
+                                                    </form>
                                     <?php
+                                                }
+                                            }
                                         }
                                     }
                                     ?>
@@ -111,46 +150,7 @@ if (!isset($_SESSION["nis"]))
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="title">TOP Score</h5>
-                            </div>
-                            <div class="card-body">
-                                <table class="table table-hover" style="margin-left:1%">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">NIS</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">SCORE</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $getData = $database->getReference("exp")->orderByChild("exp")->getValue();
-                                        $no = 1;
-                                        rsort($getData);
-                                        if ($getData > 0) {
-                                            foreach ($getData as $key => $row) {
-                                        ?>
-                                                <tr>
-                                                    <th scope="row"><?php echo $no; ?></th>
-                                                    <td><?php echo $row['nis']; ?></td>
-                                                    <td><?php $getName = $database->getReference("Users/" . $row['nis'])->getValue();
-                                                        echo $getName['name']; ?></td>
-                                                    <td><?php echo $row['exp']; ?></td>
-                                                </tr>
-                                        <?php
-                                                $no++;
-                                            }
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <!-- footer -->

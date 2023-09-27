@@ -41,12 +41,6 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                 </a>
             </li>
             <li>
-                <a href="addclass.php">
-                    <i class="now-ui-icons business_badge"></i>
-                    <p>Add Class Student</p>
-                </a>
-            </li>
-            <li>
                 <a href="../API/logout.php">
                     <i class="now-ui-icons media-1_button-power"></i>
                     <p>Logout</p>

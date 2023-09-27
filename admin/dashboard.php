@@ -27,6 +27,25 @@ if (!isset($_SESSION["nis"]))
     <link href="../assets/css/now-ui-dashboard.css?v=1.1.0" rel="stylesheet" />
     <!-- <link type="text/css" rel="stylesheet" href="http://jqueryte.com/css/jquery-te.css" charset="utf-8"> -->
     <link href="../assets/css/main.css" rel="stylesheet" />
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            padding: 10px;
+        }
+
+        .grid-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            font-size: 25px;
+            text-align: center;
+        }
+
+        .grid-count {
+            font-size: 10px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body class="">
@@ -47,20 +66,13 @@ if (!isset($_SESSION["nis"]))
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="">Leader Board</a>
-
+                        <a class="navbar-brand" href="#pablo">Add Class / Student</a>
                     </div>
-                    <?php
-                    if (isset($_SESSION['status'])) {
-                    ?>
-                        <div style="float:right">
-                            <?php echo $_SESSION['status']; ?>
-                        </div>
-                    <?php
-                        unset($_SESSION['status']);
-                    }
-                    ?>
-
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                    </button>
                     <?php include "navitem.php"; ?>
                 </div>
             </nav>
@@ -69,55 +81,87 @@ if (!isset($_SESSION["nis"]))
             </div>
             <div class="content" style="min-height: auto;">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="card" style="min-height:400px;">
+                    <div class="col-md-8">
+                        <div class="card">
                             <div class="card-header">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <h5 class="title">Top Score</h5>
-                                    </div>
-                                    <table class="table table-hover" style="margin-left:1%">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">No</th>
-                                                <th scope="col">NIS</th>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Score</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            include("../connector/dbcon.php");
-                                            $getData = $database->getReference("exp")->orderByChild("exp")->getValue();
-                                            $no = 1;
-                                            rsort($getData);
-                                            if ($getData > 0) {
-                                                foreach ($getData as $key => $row) {
-                                            ?>
-                                                    <tr>
-                                                        <th scope="row"><?php echo $no; ?></th>
-                                                        <td><?php echo $row['nis']; ?></td>
-                                                        <td><?php $getName = $database->getReference("Users/" . $row['nis'])->getValue();
-                                                            echo $getName['name']; ?></td>
-                                                        <td><?php echo $row['exp']; ?></td>
-                                                    </tr>
-                                            <?php
-                                                    $no++;
-                                                }
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
+                                <h5 class="title">Class</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="grid-container">
+                                    <?php
+                                    include('../connector/dbcon.php');
+                                    $getClass = $database->getReference('Class')->getValue();
+                                    foreach ($getClass as $key => $row) {
+                                    ?>
+                                        <form action="../API/addclass.php" method="post">
+                                            <button class="shadow-lg p-3 bg-white rounded btn btn-link" name="goto" value="<?php echo $row['idclass']; ?>">
+
+                                                <div class="grid-item"><?php echo $row['nameclass']; ?></div>
+                                                <div class="grid-count"><?php $getCount = $database->getReference('AddClass/' . $row['idclass'])->getValue();
+                                                                        $_SESSION['idclass'] = $row['idclass'];
+                                                                        if ($getCount > 0) {
+                                                                            $count = 0;
+                                                                            foreach ($getCount as $key => $row1) {
+                                                                                $count++;
+                                                                            }
+                                                                            echo $count . " Student";
+                                                                        } else {
+                                                                            echo "0 Student";
+                                                                        }
+                                                                        ?>
+                                                </div>
+
+                                            </button>
+                                        </form>
+                                    <?php
+                                    }
+                                    ?>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="title">TOP Score</h5>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-hover" style="margin-left:1%">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">NIS</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">SCORE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $getData = $database->getReference("exp")->orderByChild("exp")->getValue();
+                                        $no = 1;
+                                        rsort($getData);
+                                        if ($getData > 0) {
+                                            foreach ($getData as $key => $row) {
+                                        ?>
+                                                <tr>
+                                                    <th scope="row"><?php echo $no; ?></th>
+                                                    <td><?php echo $row['nis']; ?></td>
+                                                    <td><?php $getName = $database->getReference("Users/" . $row['nis'])->getValue();
+                                                        echo $getName['name']; ?></td>
+                                                    <td><?php echo $row['exp']; ?></td>
+                                                </tr>
+                                        <?php
+                                                $no++;
+                                            }
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <form method="POST" action="test_details.php" id="test_details">
-                <input type="hidden" id="test_id" name="test_id">
-            </form>
             <!-- footer -->
             <?php
             include "footer.php";

@@ -19,7 +19,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
             <li>
                 <a href="dashboard.php">
                     <i class="now-ui-icons education_atom"></i>
-                    <p>Education</p>
+                    <p>Coming Soon</p>
                 </a>
             </li>
             <li>

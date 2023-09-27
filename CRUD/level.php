@@ -86,6 +86,10 @@ if (!isset($_SESSION["nis"]))
                                             <input type="text" class="form-control" name="namelevel" placeholder="Class Name" value="<?php echo $getData['namelevel']; ?>">
                                         </div>
                                         <div class="form-group">
+                                            <label for="exampleFormControlInput1">Unlock Exp</label>
+                                            <input type="text" class="form-control" name="unlockexp" placeholder="Unlock Exp" value="<?php echo $getData['unlockexp']; ?>">
+                                        </div>
+                                        <div class="form-group">
                                             <label for="exampleFormControlSelect1">Class</label>
                                             <select class="form-control" name="idclass">
                                                 <?php
@@ -116,6 +120,10 @@ if (!isset($_SESSION["nis"]))
                                         <div class="form-group">
                                             <label for="exampleFormControlInput1">Class Name</label>
                                             <input type="text" class="form-control" name="namelevel" placeholder="Level Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleFormControlInput1">Unlock Exp</label>
+                                            <input type="number" class="form-control" name="unlockexp" placeholder="Unlock Exp">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Class</label>
