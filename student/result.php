@@ -93,7 +93,48 @@ if (!isset($_SESSION["nis"]))
                                     <!-- konten   -->
 
                                     <form method="post" action="../API/student_class.php">
-                                        <h1>Score anda adalah : <?php echo $_SESSION['score']; ?></h1>
+
+
+                                        <table class="table table-hover" style="margin-left:1%">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">No</th>
+                                                    <th scope="col">Jawaban</th>
+                                                    <th scope="col">Keterangan</th>
+                                                    <th scope="col">Score</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                include('../connector/dbcon.php');
+                                                for ($i = 1; $i < $_SESSION['number']; $i++) {
+                                                    $getResult = $database->getReference('Temp_Quiz/' . $_SESSION['nis'] . "/" . $i)->getValue();
+                                                    if ($getResult > 0) {
+                                                ?>
+                                                        <tr>
+                                                            <th scope="row"><?php echo $i; ?></th>
+                                                            <th scope="row"><?php echo $getResult['answer_temp']; ?></th>
+                                                            <th scope="row"><?php if ($getResult['answer_temp'] == $getResult['answer']) {
+                                                                                echo "Benar";
+                                                                            } else {
+                                                                                echo "Salah";
+                                                                            } ?></th>
+                                                            <th scope="row"><?php if ($getResult['answer_temp'] == $getResult['answer']) {
+                                                                                echo $getResult['score'];
+                                                                            } else {
+                                                                                echo "0";
+                                                                            } ?></th>
+
+                                                        </tr>
+                                                <?php
+                                                    }
+                                                }
+                                                ?>
+
+                                            </tbody>
+                                        </table>
+
+                                        <h3>Score anda adalah : <?php echo $_SESSION['score']; ?></h3>
 
                                         <button class=" btn btn-primary btn-block btn-round" name="result" style="margin-top:50px;float:right !important;">Submit</button>
                                     </form>

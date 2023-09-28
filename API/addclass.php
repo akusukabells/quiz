@@ -33,3 +33,14 @@ if (isset($_POST['goto'])) {
 if (isset($_POST['goadd'])) {
     header("location:../CRUD/addclass.php");
 }
+if (isset($_POST['delete'])) {
+    $id = $_POST['delete'];
+    $delete_Result = $database->getReference('AddClass/' . $_SESSION['idclass'] . "/" . $id)->remove();
+    if ($postRef_result) {
+        $_SESSION['status'] = "Successfully Delete Student";
+        header("location:../admin/addclass.php");
+    } else {
+        $_SESSION['status'] = "Successfully Delete Student";
+        header("location:../admin/addclass.php");
+    }
+}

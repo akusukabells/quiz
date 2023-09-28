@@ -139,8 +139,8 @@ if (!isset($_SESSION["nis"]))
                                         <?php
                                         $getData = $database->getReference("exp")->orderByChild("exp")->getValue();
                                         $no = 1;
-                                        rsort($getData);
                                         if ($getData > 0) {
+                                            rsort($getData);
                                             foreach ($getData as $key => $row) {
                                         ?>
                                                 <tr>

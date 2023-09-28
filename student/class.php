@@ -119,7 +119,7 @@ if (!isset($_SESSION["nis"]))
                                                 <?php
                                                 }
                                             } else {
-                                                if ($row['unlockexp'] <= $getExp['exp'] || $row['unlockexp'] == 0) {
+                                                if ($row['unlockexp'] == 0) {
                                                 ?>
                                                     <form action="../API/student_class.php" method="post">
                                                         <button class="shadow-lg p-3 bg-white rounded btn btn-link" name="goquiz" value="<?php echo $row['idlevel']; ?>">

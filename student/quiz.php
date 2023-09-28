@@ -87,7 +87,7 @@ if (!isset($_SESSION["nis"]))
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-md-8">
-                                            <h5 class="title">Quiz<?php echo $_SESSION['number']; ?></h5>
+                                            <h5 class="title">Quiz</h5>
                                         </div>
 
 

@@ -5,8 +5,18 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
 <div class="sidebar" data-color="orange">
     <div class="logo" style="padding:unset;">
         <a href="dashboard.php" class="simple-text logo-mini" style="width:80%">
-            Hallo, <?php echo $_SESSION['name']; ?>
+            Hallo, <?php echo $_SESSION['name']; ?><br>
+            Score <?php
+                    include('../connector/dbcon.php');
+                    $getexp = $database->getReference('exp/' . $_SESSION['nis'])->getValue();
+                    if ($getexp > 0) {
+                        echo $getexp['exp'];
+                    } else {
+                        echo "0";
+                    }
+                    ?>
         </a>
+
     </div>
     <div class="sidebar-wrapper">
         <ul class="nav">
@@ -17,9 +27,9 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                 </a>
             </li>
             <li>
-                <a href="dashboard.php">
-                    <i class="now-ui-icons education_atom"></i>
-                    <p>Coming Soon</p>
+                <a href="changepassword.php">
+                    <i class="now-ui-icons loader_gear"></i>
+                    <p>Change Password</p>
                 </a>
             </li>
             <li>

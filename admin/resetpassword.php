@@ -15,7 +15,7 @@ if (!isset($_SESSION["nis"]))
     <meta http-equiv="pragma" content="no-cache" />
     <meta http-equiv="expires" content="-1" />
     <title>
-        Users
+        Class
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -47,8 +47,7 @@ if (!isset($_SESSION["nis"]))
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="">Class</a>
-
+                        <a class="navbar-brand" href="">Reset Password</a>
                     </div>
                     <?php
                     if (isset($_SESSION['status'])) {
@@ -60,7 +59,6 @@ if (!isset($_SESSION["nis"]))
                         unset($_SESSION['status']);
                     }
                     ?>
-
                     <?php include "navitem.php"; ?>
                 </div>
             </nav>
@@ -74,53 +72,28 @@ if (!isset($_SESSION["nis"]))
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <?php
-                                        include("../connector/dbcon.php");
-                                        $getClassName = $database->getReference("Class/" . $_SESSION['idclass'])->getValue();
-                                        ?>
-                                        <h5 class="title"><?php echo $getClassName['nameclass']; ?></h5>
+                                        <h5 class="title">Reset Password</h5>
                                     </div>
-                                    <div class="col-md-4">
-                                        <form method="post" action="../API/addclass.php">
-                                            <button class="btn btn-primary btn-block btn-round" name="goadd" style="margin-top:0px;width:140px !important;float:right !important;">Add Student</button>
-                                        </form>
-                                    </div>
-                                    <table class="table table-hover" style="margin-left:1%">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">No</th>
-                                                <th scope="col">NIS</th>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-
-                                            $getData = $database->getReference("AddClass/" . $_SESSION['idclass'])->getValue();
-                                            $no = 1;
-                                            if ($getData > 0) {
-                                                foreach ($getData as $key => $row) {
-                                                    $getUser = $database->getReference("Users/" . $row['nis'])->getValue();
-                                            ?>
-                                                    <tr>
-                                                        <th scope="row"><?php echo $no; ?></th>
-                                                        <td><?php echo $row['nis']; ?></td>
-                                                        <td><?php echo $getUser['name']; ?></td>
-                                                        <td>
-                                                            <form method="post" action="../API/addclass.php">
-                                                                <button type="submit" class="btn btn-danger" name="delete" value="<?php echo $row['nis']; ?>">Delete</button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
-                                            <?php
-                                                    $no++;
-                                                }
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
                                 </div>
+                                <form method="post" action="../API/resetpassword.php">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Nomor Induk Siswa</label>
+                                        <input type="number" class="form-control" name="oldpassword" placeholder="Nomor Induk Siswa">
+                                    </div>
+                                    <?php
+                                    if (isset($_SESSION['notif'])) {
+                                    ?>
+                                        <div style="margin-left:2%">
+                                            <?php echo $_SESSION['notif']; ?>
+                                        </div>
+                                    <?php
+                                        unset($_SESSION['notif']);  
+                                    }
+                                    ?>
+                                    <button class="btn btn-primary btn-block btn-round" name="resetpassword" style="margin-top:50px;float:right !important;">Reset Password</button>
+
+                                </form>
+
                             </div>
                         </div>
                     </div>
@@ -136,15 +109,12 @@ if (!isset($_SESSION["nis"]))
             ?>
         </div>
     </div>
-    <!--   Core JS Files   -->
-    <script src="../assets/js/core/jquery.min.js"></script>
-    <script src="../assets/js/core/bootstrap.min.js"></script>
-    <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
     <!--  Notifications Plugin    -->
     <script src="../assets/js/plugins/bootstrap-notify.js"></script>
     <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../assets/js/now-ui-dashboard.min.js?v=1.1.0" type="text/javascript"></script>
     <!-- <script src="http://jqueryte.com/js/jquery-te-1.4.0.min.js"></script> -->
 </body>
+
 
 </html>

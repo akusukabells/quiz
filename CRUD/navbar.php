@@ -41,6 +41,18 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                 </a>
             </li>
             <li>
+                <a href="../admin/changepassword.php">
+                    <i class="now-ui-icons users_circle-08"></i>
+                    <p>Change Password</p>
+                </a>
+            </li>
+            <li>
+                <a href="../admin/resetpassword.php">
+                    <i class="now-ui-icons users_circle-08"></i>
+                    <p>Reset Password</p>
+                </a>
+            </li>
+            <li>
                 <a href="../API/logout.php">
                     <i class="now-ui-icons media-1_button-power"></i>
                     <p>Logout</p>

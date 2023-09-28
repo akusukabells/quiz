@@ -42,6 +42,23 @@ if (isset($_POST['quiz'])) {
     $getQuestion = $database->getReference("Question/" . $gettemp['idquestion'])->getValue();
     if ($choice == $getQuestion['answer']) {
         $_SESSION['score'] = $getQuestion['score'] + $_SESSION['score'];
+        $postData = [
+            'idquestion' => $gettemp['idquestion'],
+            'score' => $gettemp['score'],
+            'answer' => $gettemp['answer'],
+            'answer_temp' => $choice,
+            'check' => "1"
+        ];
+        $postRef_result = $database->getReference("Temp_Quiz/" . $nis . "/" . $_SESSION['number'])->set($postData);
+    } else {
+        $postData = [
+            'idquestion' => $gettemp['idquestion'],
+            'score' => $gettemp['score'],
+            'answer' => $gettemp['answer'],
+            'answer_temp' => $choice,
+            'check' => "0"
+        ];
+        $postRef_result = $database->getReference("Temp_Quiz/" . $nis . "/" . $_SESSION['number'])->set($postData);
     }
     $_SESSION['number']++;
     $nextQuestion = $database->getReference("Temp_Quiz/" . $nis . "/" . $_SESSION['number'])->getValue();
