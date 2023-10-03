@@ -15,7 +15,7 @@ if (!isset($_SESSION["nis"]))
     <meta http-equiv="pragma" content="no-cache" />
     <meta http-equiv="expires" content="-1" />
     <title>
-        Class
+        Change Password
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -47,7 +47,7 @@ if (!isset($_SESSION["nis"]))
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="">Reset Password</a>
+                        <a class="navbar-brand" href="">Change Password</a>
                     </div>
                     <?php
                     if (isset($_SESSION['status'])) {
@@ -72,7 +72,7 @@ if (!isset($_SESSION["nis"]))
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <h5 class="title">Reset Password</h5>
+                                        <h5 class="title">Change Password</h5>
                                     </div>
                                 </div>
                                 <form method="post" action="../API/resetpassword.php">
@@ -98,7 +98,7 @@ if (!isset($_SESSION["nis"]))
                                         unset($_SESSION['notif']);
                                     }
                                     ?>
-                                    <button class="btn btn-primary btn-block btn-round" name="resetstudent" style="margin-top:50px;float:right !important;">Add Class</button>
+                                    <button class="btn btn-primary btn-block btn-round" name="resetstudent" style="margin-top:50px;float:right !important;">Change Password</button>
 
                                 </form>
 

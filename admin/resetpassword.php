@@ -15,7 +15,7 @@ if (!isset($_SESSION["nis"]))
     <meta http-equiv="pragma" content="no-cache" />
     <meta http-equiv="expires" content="-1" />
     <title>
-        Class
+        Reset Password
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -87,7 +87,7 @@ if (!isset($_SESSION["nis"]))
                                             <?php echo $_SESSION['notif']; ?>
                                         </div>
                                     <?php
-                                        unset($_SESSION['notif']);  
+                                        unset($_SESSION['notif']);
                                     }
                                     ?>
                                     <button class="btn btn-primary btn-block btn-round" name="resetpassword" style="margin-top:50px;float:right !important;">Reset Password</button>

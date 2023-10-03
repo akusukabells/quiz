@@ -89,7 +89,14 @@ if (!isset($_SESSION["nis"]))
                                         <div class="col-md-8">
                                             <h5 class="title">Quiz</h5>
                                         </div>
+                                        <div class="col-md-4">
+                                            <div class="btn btn-primary btn-block btn-round" style="margin-top:0px;max-width:120px !important;float:right !important;" aria-readonly="true">
+                                                <?php
 
+                                                echo $_SESSION['number'] . "/" . $_SESSION['maxnumber'] . " Question";
+                                                ?></div>
+
+                                        </div>
 
                                     </div>
                                     <!-- konten   -->

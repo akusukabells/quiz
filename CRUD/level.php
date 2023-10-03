@@ -114,11 +114,11 @@ if (!isset($_SESSION["nis"]))
                                 ?>
                                     <form method="post" action="../API/level.php">
                                         <div class="form-group">
-                                            <label for="exampleFormControlInput1">ID Class</label>
+                                            <label for="exampleFormControlInput1">ID Level</label>
                                             <input type="text" class="form-control" name="idlevel" value="<?php echo $_SESSION['id']; ?>" readonly>
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleFormControlInput1">Class Name</label>
+                                            <label for="exampleFormControlInput1">Level Name</label>
                                             <input type="text" class="form-control" name="namelevel" placeholder="Level Name">
                                         </div>
                                         <div class="form-group">
@@ -138,7 +138,7 @@ if (!isset($_SESSION["nis"]))
                                                 ?>
                                             </select>
                                         </div>
-                                        <button class="btn btn-primary btn-block btn-round" name="adddatalevel" style="margin-top:50px;float:right !important;">Add Class</button>
+                                        <button class="btn btn-primary btn-block btn-round" name="adddatalevel" style="margin-top:50px;float:right !important;">Add Level</button>
 
                                     </form>
                                 <?php

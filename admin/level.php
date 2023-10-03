@@ -87,6 +87,7 @@ if (!isset($_SESSION["nis"]))
                                                 <th scope="col">No</th>
                                                 <th scope="col">ID Level</th>
                                                 <th scope="col">Level Name</th>
+                                                <th scope="col">Class Name</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
@@ -102,6 +103,8 @@ if (!isset($_SESSION["nis"]))
                                                         <th scope="row"><?php echo $no; ?></th>
                                                         <td><?php echo $row['idlevel']; ?></td>
                                                         <td><?php echo $row['namelevel']; ?></td>
+                                                        <td><?php $getClass = $database->getReference('Class/' . $row['idclass'])->getValue();
+                                                            echo $getClass['nameclass']; ?></td>
                                                         <td>
                                                             <form method="post" action="../API/level.php">
                                                                 <button type="submit" class="btn btn-success" name="edit" value="<?php echo $row['idlevel']; ?>">Edit</button>

@@ -91,29 +91,33 @@ if (!isset($_SESSION["nis"]))
                                     <?php
                                     include('../connector/dbcon.php');
                                     $getClass = $database->getReference('Class')->getValue();
-                                    foreach ($getClass as $key => $row) {
+                                    if ($getClass > 0) {
+
+
+                                        foreach ($getClass as $key => $row) {
                                     ?>
-                                        <form action="../API/addclass.php" method="post">
-                                            <button class="shadow-lg p-3 bg-white rounded btn btn-link" name="goto" value="<?php echo $row['idclass']; ?>">
+                                            <form action="../API/addclass.php" method="post">
+                                                <button class="shadow-lg p-3 bg-white rounded btn btn-link" name="goto" value="<?php echo $row['idclass']; ?>">
 
-                                                <div class="grid-item"><?php echo $row['nameclass']; ?></div>
-                                                <div class="grid-count"><?php $getCount = $database->getReference('AddClass/' . $row['idclass'])->getValue();
-                                                                        $_SESSION['idclass'] = $row['idclass'];
-                                                                        if ($getCount > 0) {
-                                                                            $count = 0;
-                                                                            foreach ($getCount as $key => $row1) {
-                                                                                $count++;
+                                                    <div class="grid-item"><?php echo $row['nameclass']; ?></div>
+                                                    <div class="grid-count"><?php $getCount = $database->getReference('AddClass/' . $row['idclass'])->getValue();
+                                                                            $_SESSION['idclass'] = $row['idclass'];
+                                                                            if ($getCount > 0) {
+                                                                                $count = 0;
+                                                                                foreach ($getCount as $key => $row1) {
+                                                                                    $count++;
+                                                                                }
+                                                                                echo $count . " Student";
+                                                                            } else {
+                                                                                echo "0 Student";
                                                                             }
-                                                                            echo $count . " Student";
-                                                                        } else {
-                                                                            echo "0 Student";
-                                                                        }
-                                                                        ?>
-                                                </div>
+                                                                            ?>
+                                                    </div>
 
-                                            </button>
-                                        </form>
+                                                </button>
+                                            </form>
                                     <?php
+                                        }
                                     }
                                     ?>
                                 </div>

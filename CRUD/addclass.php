@@ -94,7 +94,7 @@ if (!isset($_SESSION["nis"]))
                                         unset($_SESSION['notif']);
                                     }
                                     ?>
-                                    <button class=" btn btn-primary btn-block btn-round" name="adddata" style="margin-top:50px;float:right !important;">Add Class</button>
+                                    <button class=" btn btn-primary btn-block btn-round" name="adddata" style="margin-top:50px;float:right !important;">Add Student</button>
 
                                 </form>
                             </div>
