@@ -47,7 +47,7 @@ if (!isset($_SESSION["nis"]))
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="">Question</a>
+                        <?php include("../admin/logo.php"); ?>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -103,66 +103,67 @@ if (!isset($_SESSION["nis"]))
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleFormControlInput1">Option</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">A</div>
-                                                </div>
-                                                <input type="text" class="form-control" name="option_a" placeholder="Option A" value="<?php echo $getData['option_a']; ?>">
-                                            </div>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">B</div>
-                                                </div>
-                                                <input type="text" class="form-control" name="option_b" placeholder="Option B" value="<?php echo $getData['option_b']; ?>">
-                                            </div>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">C</div>
-                                                </div>
-                                                <input type="text" class="form-control" name="option_c" placeholder="Option C" value="<?php echo $getData['option_c']; ?>">
-                                            </div>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">D</div>
-                                                </div>
-                                                <input type="text" class="form-control" name="option_d" placeholder="Option D" value="<?php echo $getData['option_d']; ?>">
-                                            </div>
+                                            <?php
+                                            $option = $database->getReference('Option/' . $getData['idquestion'])->getValue();
+                                            $no = 1;
+                                            function keabcd($no)
+                                            {
+                                                switch ($no) {
+                                                    case "1":
+                                                        return "A";
+                                                    case "2":
+                                                        return "B";
+                                                    case "3":
+                                                        return "C";
+                                                    case "4":
+                                                        return "D";
+                                                }
+                                            }
+                                            function keabcdid($no)
+                                            {
+                                                switch ($no) {
+                                                    case "1":
+                                                        return "option_a";
+                                                    case "2":
+                                                        return "option_b";
+                                                    case "3":
+                                                        return "option_c";
+                                                    case "4":
+                                                        return "option_d";
+                                                }
+                                            }
+                                            foreach ($option as $key => $row) {
+                                                if (!empty($row['option'])) {
+                                            ?>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text"><?php echo keabcd($no); ?></div>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="<?php echo keabcdid($no); ?>" placeholder="Option A" value="<?php echo $row['option']; ?>">
+                                                    </div>
+                                            <?php
+                                                    $no++;
+                                                }
+                                            }
+
+
+                                            ?>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Answer</label>
                                             <select class="form-control" name="answer">
                                                 <?php
-                                                if ($getData['answer'] == "A") {
-                                                ?>
-                                                    <option value="A" selected>A</option>
-                                                    <option value="B">B</option>
-                                                    <option value="C">C</option>
-                                                    <option value="D">D</option>
-                                                <?php
-                                                } else if ($getData['answer'] == "B") {
-                                                ?>
-                                                    <option value="A">A</option>
-                                                    <option value="B" selected>B</option>
-                                                    <option value="C">C</option>
-                                                    <option value="D">D</option>
-                                                <?php
-                                                } else if ($getData['answer'] == "C") {
-                                                ?>
-                                                    <option value="A">A</option>
-                                                    <option value="B">B</option>
-                                                    <option value="C" selected>C</option>
-                                                    <option value="D">D</option>
-                                                <?php
-                                                } else {
-                                                ?>
-                                                    <option value="A">A</option>
-                                                    <option value="B">B</option>
-                                                    <option value="C">C</option>
-                                                    <option value="D" selected>D</option>
-                                                <?php
+                                                $option = $database->getReference('Option/' . $getData['idquestion'])->getValue();
+
+                                                foreach ($option as $key => $row) {
+                                                    if ($getData['answer'] == $row['option']) {
+                                                        echo "<option value=" . keabcd($nomor) . " selected>" . keabcd($nomor) . "</option>";
+                                                    } else {
+                                                        echo "<option value=" . keabcd($nomor) . ">" . keabcd($nomor) . "</option>";
+                                                    }
+                                                    $nomor++;
                                                 }
                                                 ?>
-
                                             </select>
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Score</label>

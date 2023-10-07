@@ -15,7 +15,7 @@ if (!isset($_SESSION["nis"]))
     <meta http-equiv="pragma" content="no-cache" />
     <meta http-equiv="expires" content="-1" />
     <title>
-        Class
+        Reward
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -67,39 +67,59 @@ if (!isset($_SESSION["nis"]))
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <h5 class="title">Class</h5>
+                                        <h5 class="title">Reward</h5>
                                     </div>
                                 </div>
                                 <?php
-                                if (!empty($_SESSION['edit'])) {
-                                    include("../connector/dbcon.php");
-                                    $getData = $database->getReference("Class/" . $_SESSION['edit'])->getValue();
+                                include("../connector/dbcon.php");
+                                $getData = $database->getReference("Reward")->getValue();
+                                if ($getData > 0) {
                                 ?>
-                                    <form method="post" action="../API/class.php">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlInput1">ID Class</label>
-                                            <input type="text" class="form-control" name="idclass" value="<?php echo $_SESSION['edit']; ?>" readonly>
+                                    <form method="post" action="../API/reward.php">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Juara 1</div>
+                                            </div>
+                                            <input type="text" class="form-control" name="juara_1" placeholder="Juara 1" value="<?php echo $getData['juara_1']; ?>">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="exampleFormControlInput1">Class Name</label>
-                                            <input type="text" class="form-control" name="nameclass" placeholder="Class Name" value="<?php echo $getData['nameclass']; ?>">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Juara 2</div>
+                                            </div>
+                                            <input type="text" class="form-control" name="juara_2" placeholder="Juara 2" value="<?php echo $getData['juara_2']; ?>">
                                         </div>
-                                        <button class="btn btn-primary btn-block btn-round" name="editclass" style="margin-top:50px;float:right !important;">Save</button>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Juara 3</div>
+                                            </div>
+                                            <input type="text" class="form-control" name="juara_3" placeholder="Juara 3" value="<?php echo $getData['juara_3']; ?>">
+                                        </div>
+                                        <button class="btn btn-primary btn-block btn-round" name="addreward" style="margin-top:50px;float:right !important;">Save</button>
 
                                     </form>
                                 <?php
                                 } else {
                                 ?>
-                                    <form method="post" action="../API/class.php">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlInput1">ID Class</label>
-                                            <input type="text" class="form-control" name="idclass" value="<?php echo $_SESSION['id']; ?>" readonly>
+                                    <form method="post" action="../API/reward.php">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Juara 1</div>
+                                            </div>
+                                            <input type="text" class="form-control" name="juara_1" placeholder="Juara 1">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="exampleFormControlInput1">Class Name</label>
-                                            <input type="text" class="form-control" name="nameclass" placeholder="Class Name">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Juara 2</div>
+                                            </div>
+                                            <input type="text" class="form-control" name="juara_2" placeholder="Juara 2">
                                         </div>
-                                        <button class="btn btn-primary btn-block btn-round" name="adddataclass" style="margin-top:50px;float:right !important;">Add Class</button>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Juara 3</div>
+                                            </div>
+                                            <input type="text" class="form-control" name="juara_3" placeholder="Juara 3">
+                                        </div>
+                                        <button class="btn btn-primary btn-block btn-round" name="addreward" style="margin-top:50px;float:right !important;">Save</button>
 
                                     </form>
                                 <?php

@@ -27,6 +27,7 @@ if (!isset($_SESSION["nis"]))
     <link href="../assets/css/now-ui-dashboard.css?v=1.1.0" rel="stylesheet" />
     <!-- <link type="text/css" rel="stylesheet" href="http://jqueryte.com/css/jquery-te.css" charset="utf-8"> -->
     <link href="../assets/css/main.css" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/blackpool" rel="stylesheet">
     <style>
         .grid-container {
             display: grid;
@@ -66,7 +67,7 @@ if (!isset($_SESSION["nis"]))
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="#pablo">Add Class / Student</a>
+                        <?php include("logo.php"); ?>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -81,7 +82,7 @@ if (!isset($_SESSION["nis"]))
             </div>
             <div class="content" style="min-height: auto;">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-7 ">
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="title">Class</h5>
@@ -124,7 +125,7 @@ if (!isset($_SESSION["nis"]))
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="title">TOP Score</h5>
@@ -133,26 +134,74 @@ if (!isset($_SESSION["nis"]))
                                 <table class="table table-hover" style="margin-left:1%">
                                     <thead>
                                         <tr>
+                                            <th scope="col"></th>
                                             <th scope="col">No</th>
                                             <th scope="col">NIS</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">SCORE</th>
+                                            <th scope="col">Reward</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                         $getData = $database->getReference("exp")->orderByChild("exp")->getValue();
+                                        $getReward = $database->getReference("Reward")->getValue();
                                         $no = 1;
                                         if ($getData > 0) {
                                             rsort($getData);
                                             foreach ($getData as $key => $row) {
                                         ?>
                                                 <tr>
-                                                    <th scope="row"><?php echo $no; ?></th>
-                                                    <td><?php echo $row['nis']; ?></td>
-                                                    <td><?php $getName = $database->getReference("Users/" . $row['nis'])->getValue();
-                                                        echo $getName['name']; ?></td>
-                                                    <td><?php echo $row['exp']; ?></td>
+                                                    <?php
+                                                    if ($no == 1) {
+                                                        echo "<td><box-icon name='crown' type='solid' color='#FFD700' ></box-icon></td>";
+                                                    ?>
+                                                        <th scope="row"><?php echo $no; ?></th>
+                                                        <td><?php echo $row['nis']; ?></td>
+                                                        <td><?php $getName = $database->getReference("Users/" . $row['nis'])->getValue();
+                                                            echo $getName['name']; ?></td>
+                                                        <td><?php echo $row['exp']; ?></td>
+                                                        <td><?php if ($getReward > 0) {
+                                                                echo $getReward['juara_1'];
+                                                            } ?></td>
+
+                                                    <?php
+
+                                                    } else if ($no == 2) {
+                                                        echo "<td><box-icon name='crown' type='solid' color='#D3D3D3' ></box-icon></td>";
+                                                    ?>
+                                                        <th scope="row"><?php echo $no; ?></th>
+                                                        <td><?php echo $row['nis']; ?></td>
+                                                        <td><?php $getName = $database->getReference("Users/" . $row['nis'])->getValue();
+                                                            echo $getName['name']; ?></td>
+                                                        <td><?php echo $row['exp']; ?></td>
+                                                        <td><?php if ($getReward > 0) {
+                                                                echo $getReward['juara_2'];
+                                                            } ?></td>
+                                                    <?php
+                                                    } else if ($no == 3) {
+                                                        echo "<td><box-icon name='crown' type='solid' color='#964B00' ></box-icon></td>";
+                                                    ?>
+                                                        <th scope="row"><?php echo $no; ?></th>
+                                                        <td><?php echo $row['nis']; ?></td>
+                                                        <td><?php $getName = $database->getReference("Users/" . $row['nis'])->getValue();
+                                                            echo $getName['name']; ?></td>
+                                                        <td><?php echo $row['exp']; ?></td>
+                                                        <td><?php if ($getReward > 0) {
+                                                                echo $getReward['juara_3'];
+                                                            } ?></td>
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        <th scope="row"><?php echo $no; ?></th>
+                                                        <td><?php echo $row['nis']; ?></td>
+                                                        <td><?php $getName = $database->getReference("Users/" . $row['nis'])->getValue();
+                                                            echo $getName['name']; ?></td>
+                                                        <td><?php echo $row['exp']; ?></td>
+                                                    <?php
+                                                    }
+                                                    ?>
+
                                                 </tr>
                                         <?php
                                                 $no++;
@@ -173,6 +222,7 @@ if (!isset($_SESSION["nis"]))
         </div>
     </div>
     <!--   Core JS Files   -->
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script src="../assets/js/core/jquery.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>
     <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>

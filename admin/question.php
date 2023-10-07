@@ -27,6 +27,7 @@ if (!isset($_SESSION["nis"]))
     <link href="../assets/css/now-ui-dashboard.css?v=1.1.0" rel="stylesheet" />
     <!-- <link type="text/css" rel="stylesheet" href="http://jqueryte.com/css/jquery-te.css" charset="utf-8"> -->
     <link href="../assets/css/main.css" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/blackpool" rel="stylesheet">
 </head>
 
 <body class="">
@@ -47,7 +48,7 @@ if (!isset($_SESSION["nis"]))
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="">Question</a>
+                        <?php include("logo.php"); ?>
 
                     </div>
                     <?php
@@ -78,7 +79,7 @@ if (!isset($_SESSION["nis"]))
                                     </div>
                                     <div class="col-md-4">
                                         <form method="post" action="../API/question.php">
-                                            <button class="btn btn-primary btn-block btn-round" name="goadd" style="margin-top:0px;width:140px !important;float:right !important;">Add Question</button>
+                                            <button class="btn btn-primary btn-block btn-round" name="goselect" style="margin-top:0px;width:140px !important;float:right !important;">Add Question</button>
                                         </form>
                                     </div>
                                     <table class="table table-hover" style="margin-left:1%">
@@ -87,10 +88,6 @@ if (!isset($_SESSION["nis"]))
                                                 <th scope="col">No</th>
                                                 <th scope="col">ID Question</th>
                                                 <th scope="col">Question</th>
-                                                <th scope="col">A</th>
-                                                <th scope="col">B</th>
-                                                <th scope="col">C</th>
-                                                <th scope="col">D</th>
                                                 <th scope="col">Answer</th>
                                                 <th scope="col">Level</th>
                                                 <th scope="col">Action</th>
@@ -108,10 +105,6 @@ if (!isset($_SESSION["nis"]))
                                                         <th scope="row"><?php echo $no; ?></th>
                                                         <td><?php echo $row['idquestion']; ?></td>
                                                         <td><?php echo $row['question']; ?></td>
-                                                        <td><?php echo $row['option_a']; ?></td>
-                                                        <td><?php echo $row['option_b']; ?></td>
-                                                        <td><?php echo $row['option_c']; ?></td>
-                                                        <td><?php echo $row['option_d']; ?></td>
                                                         <td><?php echo $row['answer']; ?></td>
                                                         <td><?php
                                                             $getLevel = $database->getReference('Level/' . $row['idlevel'])->getValue();

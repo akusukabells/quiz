@@ -66,7 +66,7 @@ if (!isset($_SESSION["nis"]))
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="#pablo">Quiz</a>
+                        <?php include("../admin/logo.php"); ?>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -112,25 +112,42 @@ if (!isset($_SESSION["nis"]))
                                             <h2><?php echo $getQuestion['question']; ?></h2>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="choice" value="A">
-                                            <label class="form-check-label" for="exampleRadios1">
-                                                <h3><?php echo $getQuestion['option_a']; ?></h3>
-                                            </label>
-                                            <br>
-                                            <input class="form-check-input" type="radio" name="choice" value="B">
-                                            <label class="form-check-label" for="exampleRadios1">
-                                                <h3><?php echo $getQuestion['option_b']; ?></h3>
-                                            </label>
-                                            <br>
-                                            <input class="form-check-input" type="radio" name="choice" value="C">
-                                            <label class="form-check-label" for="exampleRadios1">
-                                                <h3><?php echo $getQuestion['option_c']; ?></h3>
-                                            </label>
-                                            <br>
-                                            <input class="form-check-input" type="radio" name="choice" value="D">
-                                            <label class="form-check-label" for="exampleRadios1">
-                                                <h3><?php echo $getQuestion['option_d']; ?></h3>
-                                            </label>
+                                            <?php
+                                            $getdataoption = $database->getReference('Option/' . $getData['idquestion'])->getValue();
+                                            if ($getData['multioption'] == "false") {
+                                                foreach ($getdataoption as $key => $option) {
+                                                    if (!empty($option['option'])) {
+                                            ?>
+                                                        <br>
+                                                        <input class="form-check-input" type="radio" name="choice" value="<?php echo $option['option']; ?>">
+                                                        <label class="form-check-label" for="exampleRadios1">
+                                                            <h3><?php echo  $option['option']; ?></h3>
+                                                        </label>
+
+                                                    <?php
+                                                    }
+                                                }
+                                            } else {
+                                                $multi = $database->getReference('Temp_Option/' . $_SESSION['nis'] . "/" . $getData['idquestion'])->getValue();
+                                                foreach ($multi as $key => $option) {
+                                                    if (!empty($option['option'])) {
+
+                                                    ?>
+                                                        <br>
+                                                        <input class="form-check-input" type="radio" name="choice" value="<?php echo $option['option']; ?>">
+                                                        <label class="form-check-label" for="exampleRadios1">
+                                                            <h3><?php echo  $option['option']; ?></h3>
+                                                        </label>
+                                            <?php
+
+                                                    }
+                                                }
+                                                if (!empty($_SESSION['multi'])) {
+                                                    echo "<br><center><h4>Result<br></h4><h6>" . $_SESSION['multi'] . "</h6></center>";
+                                                }
+                                            }
+
+                                            ?>
 
                                         </div>
 

@@ -28,6 +28,7 @@ if (!empty($_SESSION['nis'])) {
   <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="assets/css/main.css" rel="stylesheet" />
   <link href="assets/css/now-ui-dashboard.css?v=1.1.0" rel="stylesheet" />
+  <link href="https://fonts.cdnfonts.com/css/blackpool" rel="stylesheet">
 </head>
 
 <body class="">
@@ -39,6 +40,11 @@ if (!empty($_SESSION['nis'])) {
         <div class="row">
           <div class="col-md-4"></div>
           <div class="col-md-4">
+            <div class="card-header">
+              <center>
+                <h1 style="font-family:blackpool;color:#f96332;font-size:50px"><b>Hafiz Chalange</b></h1>
+              </center>
+            </div>
             <div class="card">
               <div class="card-header">
                 <center>
@@ -104,7 +110,7 @@ if (!empty($_SESSION['nis'])) {
         <div class="container-fluid">
           <div class="copyright">
             &copy;
-            Wendot
+            Hafiz Chalange
           </div>
         </div>
       </footer>

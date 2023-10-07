@@ -15,7 +15,7 @@ if (!isset($_SESSION["nis"]))
     <meta http-equiv="pragma" content="no-cache" />
     <meta http-equiv="expires" content="-1" />
     <title>
-        Change Password
+        Reward
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -27,6 +27,7 @@ if (!isset($_SESSION["nis"]))
     <link href="../assets/css/now-ui-dashboard.css?v=1.1.0" rel="stylesheet" />
     <!-- <link type="text/css" rel="stylesheet" href="http://jqueryte.com/css/jquery-te.css" charset="utf-8"> -->
     <link href="../assets/css/main.css" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/blackpool" rel="stylesheet">
 </head>
 
 <body class="">
@@ -48,6 +49,7 @@ if (!isset($_SESSION["nis"]))
                             </button>
                         </div>
                         <?php include("logo.php"); ?>
+
                     </div>
                     <?php
                     if (isset($_SESSION['status'])) {
@@ -59,6 +61,7 @@ if (!isset($_SESSION["nis"]))
                         unset($_SESSION['status']);
                     }
                     ?>
+
                     <?php include "navitem.php"; ?>
                 </div>
             </nav>
@@ -72,36 +75,46 @@ if (!isset($_SESSION["nis"]))
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <h5 class="title">Change Password</h5>
+                                        <h5 class="title">Reward</h5>
                                     </div>
+                                    <div class="col-md-4">
+                                        <form method="post" action="../API/reward.php">
+                                            <button class="btn btn-primary btn-block btn-round" name="goaddreward" style="margin-top:0px;width:100px !important;float:right !important;">Set Reward</button>
+                                        </form>
+                                    </div>
+                                    <table class="table table-hover" style="margin-left:1%">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Reward</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            include('../connector/dbcon.php');
+                                            $getData = $database->getReference('Reward')->getValue();
+                                            if ($getData > 0) {
+
+
+                                            ?>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td><?php echo $getData['juara_1']; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td><?php echo $getData['juara_2']; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td><?php echo $getData['juara_3']; ?></td>
+                                                </tr>
+                                        </tbody>
+                                    <?php
+                                            }
+                                    ?>
+                                    </table>
                                 </div>
-                                <form method="post" action="../API/resetpassword.php">
-                                    <div class="form-group">
-                                        <label for="exampleFormControlInput1">Old Password</label>
-                                        <input type="password" class="form-control" name="oldpassword" placeholder="Old Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleFormControlInput1">New Password</label>
-                                        <input type="password" class="form-control" name="newpassword" placeholder="New Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleFormControlInput1">Confirm Password</label>
-                                        <input type="password" class="form-control" name="confirmpassword" placeholder="Confirm Password">
-                                    </div>
-                                    <?php
-                                    if (isset($_SESSION['notif'])) {
-                                    ?>
-                                        <div style="margin-left:2%">
-                                            <?php echo $_SESSION['notif']; ?>
-                                        </div>
-                                    <?php
-                                        unset($_SESSION['notif']);
-                                    }
-                                    ?>
-                                    <button class="btn btn-primary btn-block btn-round" name="resetadmin" style="margin-top:50px;float:right !important;">Change Password</button>
-
-                                </form>
-
                             </div>
                         </div>
                     </div>
@@ -117,12 +130,15 @@ if (!isset($_SESSION["nis"]))
             ?>
         </div>
     </div>
+    <!--   Core JS Files   -->
+    <script src="../assets/js/core/jquery.min.js"></script>
+    <script src="../assets/js/core/bootstrap.min.js"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
     <!--  Notifications Plugin    -->
     <script src="../assets/js/plugins/bootstrap-notify.js"></script>
     <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../assets/js/now-ui-dashboard.min.js?v=1.1.0" type="text/javascript"></script>
     <!-- <script src="http://jqueryte.com/js/jquery-te-1.4.0.min.js"></script> -->
 </body>
-
 
 </html>

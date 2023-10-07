@@ -15,7 +15,7 @@ if (!isset($_SESSION["nis"]))
     <meta http-equiv="pragma" content="no-cache" />
     <meta http-equiv="expires" content="-1" />
     <title>
-        Change Password
+        Question
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -47,18 +47,13 @@ if (!isset($_SESSION["nis"]))
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <?php include("logo.php"); ?>
+                        <?php include("../admin/logo.php"); ?>
                     </div>
-                    <?php
-                    if (isset($_SESSION['status'])) {
-                    ?>
-                        <div style="float:right">
-                            <?php echo $_SESSION['status']; ?>
-                        </div>
-                    <?php
-                        unset($_SESSION['status']);
-                    }
-                    ?>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                    </button>
                     <?php include "navitem.php"; ?>
                 </div>
             </nav>
@@ -72,36 +67,21 @@ if (!isset($_SESSION["nis"]))
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <h5 class="title">Change Password</h5>
+                                        <h5 class="title">Question</h5>
                                     </div>
                                 </div>
-                                <form method="post" action="../API/resetpassword.php">
+                                <form method="post" action="../API/question.php">
+
                                     <div class="form-group">
-                                        <label for="exampleFormControlInput1">Old Password</label>
-                                        <input type="password" class="form-control" name="oldpassword" placeholder="Old Password">
+                                        <label for="exampleFormControlSelect1">Select Type Question</label>
+                                        <select class="form-control" name="select_question">
+                                            <option value="1">Quiz</option>
+                                            <option value="2">Susun Kata</option>
+                                        </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="exampleFormControlInput1">New Password</label>
-                                        <input type="password" class="form-control" name="newpassword" placeholder="New Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleFormControlInput1">Confirm Password</label>
-                                        <input type="password" class="form-control" name="confirmpassword" placeholder="Confirm Password">
-                                    </div>
-                                    <?php
-                                    if (isset($_SESSION['notif'])) {
-                                    ?>
-                                        <div style="margin-left:2%">
-                                            <?php echo $_SESSION['notif']; ?>
-                                        </div>
-                                    <?php
-                                        unset($_SESSION['notif']);
-                                    }
-                                    ?>
-                                    <button class="btn btn-primary btn-block btn-round" name="resetadmin" style="margin-top:50px;float:right !important;">Change Password</button>
+                                    <button class="btn btn-primary btn-block btn-round" name="goadd" style="margin-top:50px;float:right !important;">Submit</button>
 
                                 </form>
-
                             </div>
                         </div>
                     </div>

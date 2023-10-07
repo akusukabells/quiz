@@ -47,7 +47,7 @@ if (!isset($_SESSION["nis"]))
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="">Add Student</a>
+                        <?php include("../admin/logo.php"); ?>
                     </div>
 
                     <?php

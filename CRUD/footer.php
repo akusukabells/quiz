@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="copyright">
       &copy;
-      Wendot
+      Hafiz Chalange
     </div>
   </div>
 </footer>

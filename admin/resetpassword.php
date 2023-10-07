@@ -27,6 +27,7 @@ if (!isset($_SESSION["nis"]))
     <link href="../assets/css/now-ui-dashboard.css?v=1.1.0" rel="stylesheet" />
     <!-- <link type="text/css" rel="stylesheet" href="http://jqueryte.com/css/jquery-te.css" charset="utf-8"> -->
     <link href="../assets/css/main.css" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/blackpool" rel="stylesheet">
 </head>
 
 <body class="">
@@ -47,7 +48,7 @@ if (!isset($_SESSION["nis"]))
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="">Reset Password</a>
+                        <?php include("logo.php"); ?>
                     </div>
                     <?php
                     if (isset($_SESSION['status'])) {
